@@ -6,4 +6,114 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.ComicDetailedActivity">
 
+    <com.github.florent37.shapeofview.shapes.ArcView
+        android:layout_width="match_parent"
+        android:layout_height="265sp"
+        app:shape_arc_cropDirection="outside"
+        app:shape_arc_height="20dp"
+        app:shape_arc_position="bottom"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/ivBackDrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:contentDescription="BackDrop"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+
+    </com.github.florent37.shapeofview.shapes.ArcView>
+
+    <ImageButton
+        android:id="@+id/ivArrowBack"
+        style="@style/BackButtonDefault"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/backbutton" />
+
+    <com.rishabhharit.roundedimageview.RoundedImageView
+        app:cornerRadius="25sp"
+        android:id="@+id/ivHQ"
+        android:layout_width="140dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="20dp"
+
+        app:layout_constraintStart_toStartOf="@id/ivArrowBack"
+        app:layout_constraintTop_toBottomOf="@id/ivArrowBack"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/titulo"
+        app:layout_constraintTop_toBottomOf="@+id/ivHQ"
+        app:layout_constraintStart_toStartOf="@id/ivArrowBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="20sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textSize="25sp"
+        android:justificationMode="inter_word"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/titulo"
+        app:layout_constraintStart_toStartOf="@id/ivArrowBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="20sp"
+        android:textSize="18sp"
+        android:justificationMode="inter_word"
+        tools:text="Teste"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/published"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintStart_toStartOf="@id/ivArrowBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="20sp"
+        android:textSize="18sp"
+        android:justificationMode="inter_word"
+        tools:text="Teste"
+        android:textColor="@color/colorAccent" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/price"
+        app:layout_constraintTop_toBottomOf="@+id/published"
+        app:layout_constraintStart_toStartOf="@id/ivArrowBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="2sp"
+        android:textSize="18sp"
+        android:justificationMode="inter_word"
+        tools:text="Teste"
+        android:textColor="@color/colorAccent" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/pages"
+        app:layout_constraintTop_toBottomOf="@+id/price"
+        app:layout_constraintStart_toStartOf="@id/ivArrowBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="2sp"
+        android:textSize="18sp"
+        android:justificationMode="inter_word"
+        tools:text="Teste"
+        android:textColor="@color/colorAccent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

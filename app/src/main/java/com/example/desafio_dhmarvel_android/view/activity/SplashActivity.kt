@@ -1,4 +1,4 @@
-package com.example.desafio_dhmarvel_android.view
+package com.example.desafio_dhmarvel_android.view.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

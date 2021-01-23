@@ -1,4 +1,4 @@
-package com.example.madeinbrasil.api
+package com.example.desafio_dhmarvel_android.api
 
 sealed class ResponseAPI {
     class Success(val data: Any?): ResponseAPI()

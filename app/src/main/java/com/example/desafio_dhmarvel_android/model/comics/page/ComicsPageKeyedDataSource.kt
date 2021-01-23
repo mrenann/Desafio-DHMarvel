@@ -1,19 +1,21 @@
-package com.example.madeinbrasil.model.upcoming
+package com.example.desafio_dhmarvel_android.model.comics.page
 
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
-import com.example.madeinbrasil.api.ResponseAPI
-import com.example.madeinbrasil.extensions.getFullImagePath
-import com.example.madeinbrasil.repository.HomeRepository
-import com.example.madeinbrasil.utils.Constants.Paging.FIRST_PAGE
+import com.example.desafio_dhmarvel_android.api.ResponseAPI
+import com.example.desafio_dhmarvel_android.extensions.image
+import com.example.desafio_dhmarvel_android.model.comics.Comics
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import com.example.desafio_dhmarvel_android.model.comics.Result
+import com.example.desafio_dhmarvel_android.repository.homeRepository
+import com.example.desafio_dhmarvel_android.utils.Constants.Paging.FIRST_PAGE
 
-class UpcomingPageKeyedDataSource : PageKeyedDataSource<Int, Result>() {
+
+class ComicsPageKeyedDataSource : PageKeyedDataSource<Int, Result>() {
 
     private val repository by lazy {
-        HomeRepository()
+        homeRepository()
     }
 
     override fun loadInitial(
@@ -21,19 +23,19 @@ class UpcomingPageKeyedDataSource : PageKeyedDataSource<Int, Result>() {
         callback: LoadInitialCallback<Int, Result>
     ) {
         CoroutineScope(IO).launch {
-            when(val response = repository.getUpcoming(FIRST_PAGE)) {
+            when(val response = repository.getComics()) {
                 is ResponseAPI.Success -> {
-                    val data = response.data as Upcoming
-                    data.results = data.results.filter { it.originalLanguage.equals("pt") }
-                    data.results.forEach {result->
-                        result.posterPath = result.posterPath?.getFullImagePath()
-                        result.backdropPath?.let{ string->
-                            result.backdropPath = string.getFullImagePath()
-                        }.also {
-                            result.backdropPath = result.posterPath
+                    val data = response.data as Comics
+                    data.data?.results?.forEach {result ->
+                        result.thumbnail?.path = result.thumbnail?.path?.image()
+                        result.images?.forEach {
+                            it.path = it.path?.image()
+                        }
+                        result.description?.let { } ?: run {
+                            result.description = "Description not Found"
                         }
                     }
-                    callback.onResult(data.results, null, FIRST_PAGE + 1)
+                    data.data?.results?.let { callback.onResult(it, null, FIRST_PAGE + 1) }
                 }
                 is ResponseAPI.Error -> {
                     callback.onResult(mutableListOf(), null, FIRST_PAGE + 1)
@@ -49,19 +51,19 @@ class UpcomingPageKeyedDataSource : PageKeyedDataSource<Int, Result>() {
         val page = params.key
 
         CoroutineScope(IO).launch {
-            when(val response = repository.getUpcoming(page)) {
+            when(val response = repository.getComics()) {
                 is ResponseAPI.Success -> {
-                    val data = response.data as Upcoming
-                    data.results = data.results.filter { it.originalLanguage.equals("pt") }
-                    data.results.forEach { result->
-                        result.posterPath = result.posterPath?.getFullImagePath()
-                        result.backdropPath?.let{ string->
-                            result.backdropPath = string.getFullImagePath()
-                        }.also {
-                            result.backdropPath = result.posterPath
+                    val data = response.data as Comics
+                    data.data?.results?.forEach {result ->
+                        result.thumbnail?.path = result.thumbnail?.path?.image()
+                        result.images?.forEach {
+                            it.path = it.path?.image()
+                        }
+                        result.description?.let { } ?: run {
+                            result.description = "Descrição não Encontrada"
                         }
                     }
-                    callback.onResult(data.results, page + 1)
+                    data.data?.results?.let { callback.onResult(it, page + 1) }
                 }
                 is ResponseAPI.Error -> {
                     callback.onResult(mutableListOf(), page + 1)
@@ -77,21 +79,19 @@ class UpcomingPageKeyedDataSource : PageKeyedDataSource<Int, Result>() {
         val page = params.key
 
         CoroutineScope(IO).launch {
-            when(val response = repository.getUpcoming(page)) {
+            when(val response = repository.getComics()) {
                 is ResponseAPI.Success -> {
-                    val data = response.data as Upcoming
-                    data.results = data.results.filter { it.originalLanguage.equals("pt") }
-                    data.results.forEach {result->
-                        result.posterPath?.let{ string->
-                            result.posterPath = string.getFullImagePath()
-                    }
-                        result.backdropPath?.let{ string->
-                            result.backdropPath = string.getFullImagePath()
-                        }.also {
-                            result.backdropPath = result.posterPath
+                    val data = response.data as Comics
+                    data.data?.results?.forEach {result ->
+                        result.thumbnail?.path = result.thumbnail?.path?.image()
+                        result.images?.forEach {
+                            it.path = it.path?.image()
+                        }
+                        result.description?.let { } ?: run {
+                            result.description = "Descrição não Encontrada"
                         }
                     }
-                    callback.onResult(data.results, page - 1)
+                    data.data?.results?.let { callback.onResult(it, page - 1) }
                 }
                 is ResponseAPI.Error -> {
                     callback.onResult(mutableListOf(), page - 1)
